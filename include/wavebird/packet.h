@@ -1,5 +1,5 @@
 /**
- * WaveBird packet decoding functions.
+ * WaveBird packet decoding and encoding functions.
  *
  * After FSK-DSSS demodulation, a WaveBird frame is 25 bytes / 200 bits long,
  * and is structured as follows:

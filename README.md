@@ -1,32 +1,52 @@
 # libwavebird
 
-An open source implementation of the WaveBird protocol for Silicon Labs Gecko SoCs, used in [WavePhoenix](https://github.com/loopj/wavephoenix).
+An open source implementation of Nintendo's WaveBird protocol for Silicon Labs Gecko SoCs.
 
-Currently supports Silicon Labs Gecko Series 1 and Series 2 SoCs. Tested with the EFR32FG1, EFR32FG14, EFR32MG22, and EFR32BG22 SoCs.
+`libwavebird` provides the radio configurations and encoding/decoding logic required to communicate with Nintendo WaveBird wireless controllers and receivers. It serves as the foundation of the [WavePhoenix](https://github.com/loopj/wavephoenix) project.
 
-In theory this library **should** work with any Gecko Series 1 or Series 2 SoC that has proprietary 2.4GHz support. A `.radioconf` file for that platform will need to be created in `config/rail`.
+## Features
+- Event-based radio layer using Silicon Labs RAIL library
+  - Demodulates and frames FSK+DSSS incoming WaveBird packets
+  - Channel selection
+- Functions for encoding and decoding WaveBird packets
+  - BCH error correction, with up to 8-bit burst error correction
+  - CRC checking
+- Helpers for working with WaveBird messages
+  - 10-bit controller IDs
+  - Input state messages (button, stick, and trigger states)
+  - Origin messages (stick and trigger calibration data)
+- Virtual pairing support
+
+## Hardware Support
+
+This library was designed for Silicon Labs Gecko Series 1 and Series 2 SoCs which support proprietary 2.4 GHz wireless protocols. 
+
+It has been tested with the following SoC families:
+- EFR32xG1
+- EFR32xG14
+- EFR32xG22
+
+To add support for a new SoC, a `.radioconf` file for that platform will need to be created in `config/rail`.
 
 ## Installation
 
-This library is provided as an SLC SDK extension and component.
+This library is packaged as a Silicon Labs SDK extension.
 
-### Using Simplicity Studio
+### Via Simplicity Studio
 
-If you are using Simplicity Studio, following the instructions in [this guide](https://docs.silabs.com/simplicity-studio-5-users-guide/latest/ss-5-users-guide-getting-started/install-sdk-extensions) to add it as an extension.
+1. Follow the [Silicon Labs Guide]((https://docs.silabs.com/simplicity-studio-5-users-guide/latest/ss-5-users-guide-getting-started/install-sdk-extensions)) to add this repository as an extension.
 
-You should then be able to add the `libwavebird` component to your project from the "Software Components" tab of the project properties.
+2. Open your project's *Software Components* tab and install the `libwavebird` component.
 
 ### Using SLC-CLI
 
-If you are using SLC-CLI, you can clone the repository directly into your SDK's `extension` folder.
-
-You must then mark it as a trusted extension:
+Clone into your SDK's `extension` folder and trust the extension:
 
 ```bash
 slc signature trust -extpath <path_to_sdk>/extension/libwavebird
 ```
 
-You can then add the `libwavebird` component to your project's `.slcp` file:
+Add to your project's `.slcp` file:
 
 ```yaml
 sdk_extension:
@@ -38,25 +58,11 @@ component:
     from: libwavebird
 ```    
 
-### Using SLC-CLI without adding to the SDK
-
-If you prefer to keep the repository outside of the SDK folder, you can pass the path to `slc generate` using the `--sdk-extensions` option:
-
-```bash
-slc generate myproject.slcp --sdk-extensions <path_to_libwavebird>
-```
-
-You can then add the `libwavebird` component to your project's `.slcp` file:
-
-```yaml
-component:
-  - id: libwavebird
-    from: libwavebird
-```
-
 ## Usage
 
-See the [WavePhoenix source code](https://github.com/loopj/wavephoenix) for an example of how to use this library.
+See the [examples](examples/) directory for basic usage examples.
+
+You can also check out the [WavePhoenix source code](https://github.com/loopj/wavephoenix) for a more complete example of using this library to build a WaveBird receiver.
 
 ## Regenerating RAIL configuration files
 

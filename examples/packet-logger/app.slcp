@@ -1,0 +1,20 @@
+project_name: packet-logger
+description: WaveBird packet logger example
+quality: production
+
+sdk:
+  id: simplicity_sdk
+  version: 2025.6.2
+
+component:
+  - id: clock_manager
+  - id: device_init
+  - id: sl_main
+  - id: iostream_recommended_stream
+  - id: iostream_retarget_stdio
+  - id: printf
+  - id: libwavebird
+    from: libwavebird
+
+source:
+  - path: app.c

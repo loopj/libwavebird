@@ -5,23 +5,20 @@ An open source implementation of Nintendo's WaveBird protocol for Silicon Labs G
 `libwavebird` provides the radio configurations and encoding/decoding logic required to communicate with Nintendo WaveBird wireless controllers and receivers. It serves as the foundation of the [WavePhoenix](https://github.com/loopj/wavephoenix) project.
 
 ## Features
-- Event-based radio layer using Silicon Labs RAIL library
-  - Demodulates and frames FSK+DSSS incoming WaveBird packets
-  - Channel selection
-- Functions for encoding and decoding WaveBird packets
-  - BCH error correction, with up to 8-bit burst error correction
-  - CRC checking
-- Helpers for working with WaveBird messages
-  - 10-bit controller IDs
-  - Input state messages (button, stick, and trigger states)
-  - Origin messages (stick and trigger calibration data)
-- Virtual pairing support
+
+- Event-based radio layer demodulates and frames incoming FSK+DSSS WaveBird packets
+- Packet decoding/encoding functions handle BCH error correction and CRC validation, with up to 8-bit burst error correction
+- Manual channel selection and virtual pairing support
+- Helpers for working with decoded WaveBird messages
+  - Parse 10-bit controller IDs
+  - Parse input state messages (button, stick, and trigger states)
+  - Parse origin messages (stick and trigger calibration data)
 
 ## Hardware Support
 
 This library was designed for Silicon Labs Gecko Series 1 and Series 2 SoCs which support proprietary 2.4 GHz wireless protocols. 
 
-It has been tested with the following SoC families:
+Radio modules based on the EFR32BG22 SoC are recommended, but it has been tested with the following SoC families:
 - EFR32xG1
 - EFR32xG14
 - EFR32xG22

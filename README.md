@@ -31,7 +31,7 @@ This library is packaged as a Silicon Labs SDK extension.
 
 ### Via Simplicity Studio
 
-1. Follow the [Silicon Labs Guide]((https://docs.silabs.com/simplicity-studio-5-users-guide/latest/ss-5-users-guide-getting-started/install-sdk-extensions)) to add this repository as an extension.
+1. Follow the [Silicon Labs Guide](https://docs.silabs.com/simplicity-studio-5-users-guide/latest/ss-5-users-guide-getting-started/install-sdk-extensions) to add this repository as an extension.
 
 2. Open your project's *Software Components* tab and install the `libwavebird` component.
 

@@ -222,6 +222,15 @@ void wavebird_radio_stop_pairing(void)
     pairing_finished_callback(WB_RADIO_PAIRING_CANCELLED, current_channel);
 }
 
+void wavebird_radio_toggle_pairing(void)
+{
+  if (radio_state == WB_RADIO_RX_PAIRING_SCANNING || radio_state == WB_RADIO_RX_PAIRING_QUALIFYING) {
+    wavebird_radio_stop_pairing();
+  } else {
+    wavebird_radio_start_pairing();
+  }
+}
+
 void wavebird_radio_process(void)
 {
   switch (radio_state) {

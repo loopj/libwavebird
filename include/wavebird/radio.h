@@ -129,6 +129,13 @@ void wavebird_radio_start_pairing(void);
 void wavebird_radio_stop_pairing(void);
 
 /**
+ * Toggle the virtual pairing process.
+ *
+ * If pairing is currently active, stop it. Otherwise, start it.
+ */
+void wavebird_radio_toggle_pairing(void);
+
+/**
  * Process radio events.
  *
  * This function should be called periodically to process radio events.

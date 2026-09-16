@@ -61,6 +61,20 @@ See the [examples](examples/) directory for basic usage examples.
 
 You can also check out the [WavePhoenix source code](https://github.com/loopj/wavephoenix) for a more complete example of using this library to build a WaveBird receiver.
 
+### Using with CMake
+
+Add this repository with `add_subdirectory` and link against the `wavebird` target. To include the EFR32 radio implementation, enable the platform and select your device family before adding the subdirectory:
+
+```cmake
+set(WAVEBIRD_PLATFORM_EFR32 ON)
+set(WAVEBIRD_EFR32_FAMILY efr32xg22) # efr32xg1, efr32xg14 or efr32xg22
+add_subdirectory(libwavebird)
+
+target_link_libraries(my_app PRIVATE wavebird)
+```
+
+The EFR32 platform expects the RAIL headers (`rail.h`) to be available on the include path of the consuming target. Without a platform, only the platform-independent protocol code (packet decoding and error correction) is built.
+
 ## Regenerating RAIL configuration files
 
 If you make changes to the `.radioconf` files in the `config/rail` directory, you will need to regenerate the `rail_config.c` and `rail_config.h` files.

@@ -1,0 +1,48 @@
+menuconfig WAVEBIRD
+	bool "WaveBird protocol library"
+	help
+	  Enable libwavebird, the protocol library for Nintendo's WaveBird
+	  wireless controllers.
+
+if WAVEBIRD
+
+config WAVEBIRD_HAS_RADIO_CONFIG
+	bool
+	default y if SOC_SERIES_EFR32FG1P
+	default y if SOC_SILABS_XG22
+	help
+	  If enabled, indicates that the library has a generated RAIL
+	  configuration for the radio in this SoC.
+
+config WAVEBIRD_RADIO
+	bool "WaveBird radio"
+	default y if WAVEBIRD_HAS_RADIO_CONFIG
+	depends on SOC_GECKO_USE_RAIL
+	help
+	  Enable reception of WaveBird packets over RAIL, on a Silicon Labs
+	  SoC whose radio the library has a configuration for.
+
+if WAVEBIRD_RADIO
+
+choice WAVEBIRD_RADIO_SERIES
+	prompt "Radio configuration series"
+	default WAVEBIRD_RADIO_EFR32XG1 if SOC_SERIES_EFR32FG1P
+	default WAVEBIRD_RADIO_EFR32XG22 if SOC_SILABS_XG22
+	help
+	  Select the generated RAIL configuration to build. It has to match
+	  the radio in the SoC.
+
+config WAVEBIRD_RADIO_EFR32XG1
+	bool "EFR32xG1"
+
+config WAVEBIRD_RADIO_EFR32XG14
+	bool "EFR32xG14"
+
+config WAVEBIRD_RADIO_EFR32XG22
+	bool "EFR32xG22"
+
+endchoice
+
+endif # WAVEBIRD_RADIO
+
+endif # WAVEBIRD
